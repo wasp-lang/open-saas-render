@@ -24,9 +24,71 @@ services:
       - key: JWT_SECRET
         generateValue: true
       - key: WASP_SERVER_URL
-        sync: false
+        fromService:
+          type: web
+          name: open-saas-render-server
+          envVarKey: RENDER_EXTERNAL_URL
       - key: WASP_WEB_CLIENT_URL
-        sync: false
+        fromService:
+          type: web
+          name: open-saas-render-client
+          envVarKey: RENDER_EXTERNAL_URL
+      - key: STRIPE_API_KEY
+        value: sk_test_dummy
+      - key: STRIPE_WEBHOOK_SECRET
+        value: whsec_dummy
+      - key: LEMONSQUEEZY_API_KEY
+        value: dummy
+      - key: LEMONSQUEEZY_STORE_ID
+        value: "012345"
+      - key: LEMONSQUEEZY_WEBHOOK_SECRET
+        value: dummy
+      - key: POLAR_ORGANIZATION_ACCESS_TOKEN
+        value: polar_oat_dummy
+      - key: POLAR_WEBHOOK_SECRET
+        value: polar_whs_dummy
+      - key: POLAR_SANDBOX_MODE
+        value: "true"
+      - key: PAYMENTS_HOBBY_SUBSCRIPTION_PLAN_ID
+        value: "012345"
+      - key: PAYMENTS_PRO_SUBSCRIPTION_PLAN_ID
+        value: "012345"
+      - key: PAYMENTS_CREDITS_10_PLAN_ID
+        value: "012345"
+      - key: ADMIN_EMAILS
+        value: me@example.com
+      - key: GOOGLE_CLIENT_ID
+        value: dummy
+      - key: GOOGLE_CLIENT_SECRET
+        value: dummy
+      - key: MAILGUN_API_KEY
+        value: dummy
+      - key: MAILGUN_DOMAIN
+        value: example.com
+      - key: SENDGRID_API_KEY
+        value: dummy
+      - key: OPENAI_API_KEY
+        value: sk-dummy
+      - key: PLAUSIBLE_API_KEY
+        value: dummy
+      - key: PLAUSIBLE_SITE_ID
+        value: example.com
+      - key: PLAUSIBLE_BASE_URL
+        value: https://plausible.io/api
+      - key: GOOGLE_ANALYTICS_CLIENT_EMAIL
+        value: dummy@example.iam.gserviceaccount.com
+      - key: GOOGLE_ANALYTICS_PRIVATE_KEY
+        value: ZHVtbXk=
+      - key: GOOGLE_ANALYTICS_PROPERTY_ID
+        value: "123456789"
+      - key: AWS_S3_IAM_ACCESS_KEY
+        value: dummy
+      - key: AWS_S3_IAM_SECRET_KEY
+        value: dummy
+      - key: AWS_S3_FILES_BUCKET
+        value: dummy
+      - key: AWS_S3_REGION
+        value: us-east-1
       - key: NODE_VERSION
         value: "24"
       - key: WASP_TELEMETRY_CONTEXT
@@ -46,7 +108,12 @@ services:
     staticPublishPath: app/.wasp/out/web-app/build
     envVars:
       - key: REACT_APP_API_URL
-        sync: false
+        fromService:
+          type: web
+          name: open-saas-render-server
+          envVarKey: RENDER_EXTERNAL_URL
+      - key: REACT_APP_GOOGLE_ANALYTICS_ID
+        value: G-DUMMY
       - key: NODE_VERSION
         value: "24"
       - key: WASP_TELEMETRY_CONTEXT
