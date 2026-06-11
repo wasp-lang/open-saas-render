@@ -1,0 +1,63 @@
+services:
+  - type: web
+    name: open-saas-render-server
+    runtime: node
+    plan: free
+    region: oregon
+    branch: main
+    buildCommand: >-
+      npm install -g @wasp.sh/wasp-cli@0.24 &&
+      export PATH="$(npm prefix -g)/bin:$PATH" &&
+      cd app &&
+      wasp install &&
+      wasp build &&
+      cd .wasp/out/server &&
+      npm install &&
+      npx prisma generate --schema=../db/schema.prisma &&
+      npm run bundle
+    startCommand: cd app/.wasp/out/server && npm run start-production
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: open-saas-render-db
+          property: connectionString
+      - key: JWT_SECRET
+        generateValue: true
+      - key: WASP_SERVER_URL
+        sync: false
+      - key: WASP_WEB_CLIENT_URL
+        sync: false
+      - key: NODE_VERSION
+        value: "24"
+      - key: WASP_TELEMETRY_CONTEXT
+        value: render-open-saas
+
+  - type: web
+    name: open-saas-render-client
+    runtime: static
+    branch: main
+    buildCommand: >-
+      npm install -g @wasp.sh/wasp-cli@0.24 &&
+      export PATH="$(npm prefix -g)/bin:$PATH" &&
+      cd app &&
+      wasp install &&
+      wasp build &&
+      npx vite build
+    staticPublishPath: app/.wasp/out/web-app/build
+    envVars:
+      - key: REACT_APP_API_URL
+        sync: false
+      - key: NODE_VERSION
+        value: "24"
+      - key: WASP_TELEMETRY_CONTEXT
+        value: render-open-saas
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /200.html
+
+databases:
+  - name: open-saas-render-db
+    plan: free
+    region: oregon
+    postgresMajorVersion: "18"
