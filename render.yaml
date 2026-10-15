@@ -6,7 +6,7 @@ services:
     region: oregon
     branch: main
     buildCommand: >-
-      npm install -g @wasp.sh/wasp-cli@0.25 &&
+      npm install -g @wasp.sh/wasp-cli@0.26.0 &&
       export PATH="$(npm prefix -g)/bin:$PATH" &&
       cd app &&
       wasp install &&
@@ -21,6 +21,14 @@ services:
         fromDatabase:
           name: open-saas-render-db
           property: connectionString
+      - key: PORT
+        value: "10000"
+      - key: PADDLE_API_KEY
+        value: dummy
+      - key: PADDLE_WEBHOOK_SECRET
+        value: dummy
+      - key: PADDLE_SANDBOX_MODE
+        value: "true"
       - key: JWT_SECRET
         generateValue: true
       - key: WASP_SERVER_URL
@@ -99,7 +107,7 @@ services:
     runtime: static
     branch: main
     buildCommand: >-
-      npm install -g @wasp.sh/wasp-cli@0.25 &&
+      npm install -g @wasp.sh/wasp-cli@0.26.0 &&
       export PATH="$(npm prefix -g)/bin:$PATH" &&
       cd app &&
       wasp install &&
@@ -112,6 +120,10 @@ services:
           type: web
           name: open-saas-render-server
           envVarKey: RENDER_EXTERNAL_URL
+      - key: REACT_APP_PADDLE_CLIENT_TOKEN
+        value: test_dummy
+      - key: REACT_APP_PADDLE_SANDBOX_MODE
+        value: "true"
       - key: REACT_APP_GOOGLE_ANALYTICS_ID
         value: G-DUMMY
       - key: NODE_VERSION
