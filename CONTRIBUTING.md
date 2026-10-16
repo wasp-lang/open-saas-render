@@ -80,7 +80,7 @@ Check the latest [Render deployment guide](https://wasp.sh/docs/guides/deploymen
 5. Set `WASP_SERVER_URL` and `WASP_WEB_CLIENT_URL` on the server service.
 6. Set `REACT_APP_API_URL` on the client service.
 7. Save and rebuild both services.
-8. Verify the client URL loads and the server returns `200`.
+8. Verify the client URL loads and the server returns `200` from `/up`.
 9. Do not expect login or email flows to work during this smoke test unless real provider env vars are configured.
 
 If a service fails, inspect its build and deploy logs. Common causes are missing variables, stale Wasp build commands, or changes in Wasp's generated output layout.
