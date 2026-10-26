@@ -6,8 +6,8 @@ services:
     region: oregon
     branch: main
     buildCommand: >-
-      npm install -g @wasp.sh/wasp-cli@0.26.1 &&
-      export PATH="$(npm prefix -g)/bin:$PATH" &&
+      npm install -g --prefix "$HOME/.local" @wasp.sh/wasp-cli@0.26.1 &&
+      export PATH="$HOME/.local/bin:$PATH" &&
       cd app &&
       wasp install &&
       wasp build &&
@@ -107,8 +107,8 @@ services:
     runtime: static
     branch: main
     buildCommand: >-
-      npm install -g @wasp.sh/wasp-cli@0.26.1 &&
-      export PATH="$(npm prefix -g)/bin:$PATH" &&
+      npm install -g --prefix "$HOME/.local" @wasp.sh/wasp-cli@0.26.1 &&
+      export PATH="$HOME/.local/bin:$PATH" &&
       cd app &&
       wasp install &&
       wasp build &&

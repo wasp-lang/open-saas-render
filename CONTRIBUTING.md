@@ -65,8 +65,8 @@ wasp start
 Bump the Wasp CLI version in both `render.yaml` build commands:
 
 ```diff
--npm install -g @wasp.sh/wasp-cli@old
-+npm install -g @wasp.sh/wasp-cli@new
+-npm install -g --prefix "$HOME/.local" @wasp.sh/wasp-cli@old
++npm install -g --prefix "$HOME/.local" @wasp.sh/wasp-cli@new
 ```
 
 Check the latest [Render deployment guide](https://wasp.sh/docs/guides/deployment/cloud-providers/render) and update `render.yaml` if the recommended commands changed.
